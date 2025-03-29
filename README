@@ -1,0 +1,88 @@
+Documentação
+
+Instruções Postman:
+
+Instruções iniciais: lembre-se de marcar o check key e selecionar aplplication/json no Headers, trabalharemos no postman com requisições via json e Bearer token authorization.
+
+1. Criação de Usuários
+
+1.1 A Rota para criação de usuários é: 
+    /register
+    Metodo: POST
+    Os parametros para criação de um usuário através dessa rota são, por exemplo:
+    {
+        "name": "usuario 1",
+        "email" : "usuario@email.com",
+        "password" : "123",
+        "pawword_confirmation" : "123",
+        "role" : "(pode ser "admin, "moderador, ou "user")"
+    }
+
+    OBS 1: Essa rota não contém restrição pois foi considerado o uso dela para criação de usuarios em geral para fins de teste, mas nada impede de que seja restrita caso seja solicitado.
+
+    OBS 2: Sempre que um usuário é criado é gerado um token, da mesma forma que sempre que um usuário faz login também é gerado um token, e quando o usuário faz logout os tokens são deletados. Os Tokens serão utilizados para autenticação na aplicação.
+
+1.2 A Rota de Login é:
+    /login
+    Método: POST
+
+    O usuário deve utilizar seu e-mail e senha para realizar login na aplicação, por exemplo:
+    {
+        "email": "usuario@email.com",
+        "password" : "123"
+    }
+
+    OBS 1: Ao fazer Login Séra gerado um token.
+
+1.3 A Rota de Logout é:
+    /logout
+    Método: POST
+
+    Para fazer logou o usuário deve utilizar o token gerado durante o login:
+    - Ir na aba Authorization
+    - Em Auth Type selecionar: Bearer Token
+    - Em Token , Colar o token gerado anteriormente e enviar a requisição
+    - Com isso o usuário conseguirar encerrar a sessão
+
+    OBS 1: Caso o Token seja diferente do obtido anteriormente, não haverá autorização para encerrar a sessão
+
+1.4 Envio de Convites: 
+    Rota: /gerar-convite
+    Método: POST
+
+    Apenas administradores tem permissão para gerar convites, e devem ser feitos passando email do convidado como parametro, por exemplo:
+    {
+        "email" : "convidado@email.com"
+    }
+
+    Ao gerar um convite, será fornecido um token que deverá ser entregue ao convidado, que por sua vez irá usar para poder se cadastrar.
+
+1.4 Cadastro de Convidado:
+    Rota: /cadastro-de-convidado
+    Método: POST
+
+    O Convidado deverá passar os seguintes parametros, incluindo o token que recebeu do administrador, por exemplo:
+    {
+     "name" : "Convidado",
+     "email" : "convidado@email.com",
+     "password" : "123",
+     "password_confirmation" : 123,
+     "token" : qqweodojs545qwd45d64wq545
+    }
+
+    OBS 1: O convidado só irá conseguir enviar a requisição caso o token esteja correto ao email que foi relacionado, caso qualquer um dos dois esteja errado o usuário não irá conseguir se cadastrar.
+
+    OBS 2: Por padrão o usuário receberá a role de "user", que poderá ser alterada por um adminstrador posteriormente.
+
+
+
+
+
+
+
+
+Enviar o token do convite via e-mail
+
+Melhoras: Filtros e exibição de listas para usuários, para o administrador poder visualizar e gerenciar melhor, não dependendo de conhecer apenas o ID do usuario para fazer um update por exemplo
+
+Separar melhor os controllers

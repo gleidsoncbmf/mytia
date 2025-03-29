@@ -13,6 +13,12 @@ class Produto extends Model
         'nome',
         'descricao',
         'valor',
-        'avaliacao',
+        'avaliacao'
+        
     ];
+
+    public function avaliacoes()
+    {
+        return $this->hasMany(Avaliacao::class);
+    }
 }

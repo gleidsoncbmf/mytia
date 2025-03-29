@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nome');
             $table->text('descricao');
             $table->string('valor');
-            $table->text('avaliacao');
             $table->timestamps();
         });
     }
