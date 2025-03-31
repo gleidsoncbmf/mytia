@@ -86,3 +86,5 @@ Enviar o token do convite via e-mail
 Melhoras: Filtros e exibição de listas para usuários, para o administrador poder visualizar e gerenciar melhor, não dependendo de conhecer apenas o ID do usuario para fazer um update por exemplo
 
 Separar melhor os controllers
+
+As avaliações devem ser excluidas quando o produto for excluido ? Isso permitiria indeiretamente que moderadores também possuissem o poder pra excluir avaliações

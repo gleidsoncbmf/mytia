@@ -1,8 +1,8 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
+use App\Jobs\AnalyzeSentiment;
 use App\Models\Avaliacao;
 use App\Models\Produto;
 use Illuminate\Http\Request;
@@ -10,41 +10,51 @@ use Illuminate\Support\Facades\Auth;
 
 class AvaliacaoController extends Controller
 {
-    // Listar avaliações por produto
-    public function index(Produto $produto)
+    /**
+     * Armazena uma nova avaliação e dispara o job de análise de sentimento.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $produtoId
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, $produtoId)
     {
-        return response()->json($produto->avaliacoes()->with('user')->get());
-    }
-
-    // Criar uma nova avaliação (somente usuários autenticados)
-    public function store(Request $request, Produto $produto)
-    {
-        $fields = $request->validate([
-
-            'comentario' => 'required|string|max:1000'
+        // Validação da requisição
+        $request->validate([
+            'comentario' => 'required|string',
         ]);
 
+        // Criação da avaliação
         $avaliacao = Avaliacao::create([
+            'comentario' => $request->comentario,
+            'produto_id' => $produtoId,
             'user_id' => Auth::id(),
-            'produto_id' => $produto->id,
-            'comentario' => $fields['comentario'],
+            'sentimento' => 'pending', // Sentimento inicial como pendente
         ]);
 
-        // Dispara um Job para processar análise de sentimento (iremos criar esse Job depois)
-        dispatch(new \App\Jobs\ProcessarSentimentoJob($avaliacao));
+        // Despacha o job para análise de sentimento
+        AnalyzeSentiment::dispatch($request->comentario, $avaliacao->id);
 
-        return response()->json($avaliacao, 201);
+        return response()->json(['message' => 'Avaliação salva com sucesso!']);
     }
-
-    // Excluir avaliação (somente admin ou o próprio usuário)
-    public function destroy(Avaliacao $avaliacao)
+    public function index($produtoId)
     {
-        if (Auth::id() !== $avaliacao->user_id && Auth::user()->role !== 'admin') {
-            return response()->json(['error' => 'Acesso negado'], 403);
-        }
+        // Obtendo todas as avaliações do produto
+        $avaliacoes = Avaliacao::where('produto_id', $produtoId)->get();
 
-        $avaliacao->delete();
-        return response()->json(['message' => 'Avaliação excluída com sucesso']);
+        return response()->json($avaliacoes);
     }
-}
 
+    public function destroy(Produto $produto, Avaliacao $avaliacao)
+{
+    // Verifica se o usuário autenticado é o dono da avaliação ou um administrador
+    if ($avaliacao->user_id !== auth()->id() && !auth()->user()->is_admin) {
+        return response()->json(['message' => 'Você não tem permissão para excluir esta avaliação.'], 403);
+    }
+
+    // Deleta a avaliação
+    $avaliacao->delete();
+
+    return response()->json(['message' => 'Avaliação excluída com sucesso.']);
+}
+}
