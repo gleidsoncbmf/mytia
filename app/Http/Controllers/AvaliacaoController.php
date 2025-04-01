@@ -7,6 +7,7 @@ use App\Models\Avaliacao;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AvaliacaoController extends Controller
 {
@@ -35,10 +36,20 @@ class AvaliacaoController extends Controller
         // Despacha o job para análise de sentimento
         AnalyzeSentiment::dispatch($request->comentario, $avaliacao->id);
 
-        return response()->json(['message' => 'Avaliação salva com sucesso!']);
+        // Limpa o cache de avaliações para o produto específico
+        Cache::forget("produto_{$produtoId}_avaliacoes");
+
+        return response()->json(['message' => 'Avaliação salva com sucesso!'], 201);
     }
     public function index($produtoId)
     {
+
+        // Tenta obter as avaliações do cache
+    $avaliacoes = Cache::remember("produto_{$produtoId}_avaliacoes", 60, function () use ($produtoId) {
+        return Avaliacao::where('produto_id', $produtoId)->get();
+    });
+
+    return response()->json($avaliacoes);
         // Obtendo todas as avaliações do produto
         $avaliacoes = Avaliacao::where('produto_id', $produtoId)->get();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 
 class ProdutoController extends Controller
@@ -11,6 +12,13 @@ class ProdutoController extends Controller
   
     public function index()
     {
+        // Tenta obter os produtos do cache
+        $produtos = Cache::remember('produtos_lista', 60, function () {
+            return Produto::all();
+        });
+
+    return response()->json($produtos);
+
         return Produto::all();
     }
 
@@ -26,7 +34,11 @@ class ProdutoController extends Controller
 
         $produto = Produto::create($fields);
 
+        // Limpa o cache de produtos
+        Cache::forget('produtos_lista');
+
             return [$produto];
+   
         
     }
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->text('descricao');
-            $table->string('valor');
+            $table->decimal('valor', 8, 2);;
             $table->timestamps();
         });
     }

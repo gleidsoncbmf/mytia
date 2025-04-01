@@ -44,7 +44,7 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset']);
 //Rota para o convidado se cadastrar
 Route::post('/cadastro-de-convidado', [AuthController::class, 'registerWithInvite']);
 
-Route::get('/test-email', [TestEmailController::class, 'sendTestEmail']);
+Route::post('/test-email', [TestEmailController::class, 'sendTestEmail']);
 
 
 

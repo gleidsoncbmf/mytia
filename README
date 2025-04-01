@@ -88,3 +88,7 @@ Melhoras: Filtros e exibição de listas para usuários, para o administrador po
 Separar melhor os controllers
 
 As avaliações devem ser excluidas quando o produto for excluido ? Isso permitiria indeiretamente que moderadores também possuissem o poder pra excluir avaliações
+
+Utilizar o REDIS para Cache
+
+executar testes em paralelo
