@@ -21,8 +21,8 @@ class UserController extends Controller
 
     // Validação dos campos
     $fields = $request->validate([
-        'name' => 'required|max:255',
-        'email' => 'required|email|unique:users,email,' . $id, // Permite manter o mesmo e-mail
+        'name' => 'max:255',
+        'email' => 'email|unique:users,email,' . $id, // Permite manter o mesmo e-mail
         'role' => 'nullable|in:admin,moderador,user', // Apenas valores permitidos
         'password' => 'nullable|confirmed' // Senha opcional
     ]);

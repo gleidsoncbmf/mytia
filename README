@@ -92,3 +92,13 @@ As avaliações devem ser excluidas quando o produto for excluido ? Isso permiti
 Utilizar o REDIS para Cache
 
 executar testes em paralelo
+
+
+
+
+GIT 
+ZIP
+COMPOSER
+extansão php sql
+
+php artisan migrate

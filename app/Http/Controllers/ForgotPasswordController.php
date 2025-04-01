@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordResetMail; // Novo Mailable para enviar o token
 
 class ForgotPasswordController extends Controller
 {
@@ -30,8 +31,17 @@ class ForgotPasswordController extends Controller
         );
 
         // Verificando a resposta do envio
-        return $response == Password::RESET_LINK_SENT
-            ? response()->json(['message' => 'Link de recuperação enviado para o seu e-mail.'])
-            : response()->json(['error' => 'Falha ao enviar link de recuperação.'], 400);
+        if ($response == Password::RESET_LINK_SENT) {
+            // Se o link for enviado, enviamos um e-mail com o token
+            $user = User::where('email', $request->email)->first();
+            $token = app('auth.password.broker')->createToken($user); // Gerando o token
+
+            // Enviar e-mail com o token
+            Mail::to($user->email)->send(new PasswordResetMail($token));
+
+            return response()->json(['message' => 'Link de recuperação enviado para o seu e-mail.']);
+        }
+
+        return response()->json(['error' => 'Falha ao enviar link de recuperação.'], 400);
     }
 }

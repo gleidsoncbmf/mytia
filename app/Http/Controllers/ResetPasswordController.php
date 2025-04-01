@@ -2,43 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
 
 class ResetPasswordController extends Controller
 {
     /**
-     * Resetar a senha do usuário
+     * Resetar a senha do usuário com o token fornecido.
      */
     public function reset(Request $request)
     {
-        // Validando os dados da requisição
+        // Validar os dados da requisição
         $validator = Validator::make($request->all(), [
-            'token' => 'required',
             'email' => 'required|email|exists:users,email',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|confirmed', // A senha precisa ser confirmada e ter pelo menos 8 caracteres
+            'token' => 'required|string', // O token de reset também é obrigatório
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 400);
         }
 
-        // Tenta resetar a senha
+        // Tentar realizar o reset da senha
         $response = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, $password) {
-                $user->forceFill([
-                    'password' => bcrypt($password),
-                ])->save();
+            function ($user, $password) {
+                $user->password = bcrypt($password);
+                $user->save();
             }
         );
 
-        // Verificando a resposta do reset
-        return $response == Password::PASSWORD_RESET
-            ? response()->json(['message' => 'Senha redefinida com sucesso!'])
-            : response()->json(['error' => 'Falha ao resetar a senha.'], 400);
+        // Verificar se o reset foi bem-sucedido
+        if ($response == Password::PASSWORD_RESET) {
+            return response()->json(['message' => 'Senha resetada com sucesso.']);
+        } else {
+            return response()->json(['error' => 'Falha ao resetar a senha.'], 400);
+        }
     }
 }

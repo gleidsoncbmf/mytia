@@ -16,10 +16,10 @@ use App\Http\Middleware\AdminOrModeratorMiddleware;
 
 
 
+
 //Rotas do Administrador
 Route::middleware(['auth:sanctum', AdminMiddleware::class])->put('/editar-user/{id}', [UserController::class, 'update']);
 Route::middleware('auth:sanctum', AdminMiddleware::class)->post('/gerar-convite', [InviteController::class, 'generateInvite']);
-
 
 //Rotas do Administrador e Moderador
 Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->post('/produtos', [ProdutoController::class, 'store']);
@@ -36,15 +36,15 @@ Route::delete('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'destroy']
 //Rotas para todos, inclusive não autenticados
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-// Solicitar link de recuperação de senha
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
-// Resetar a senha
-Route::post('password/reset', [ResetPasswordController::class, 'reset']);
+
+//Rota para criar uma nova senha
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
 //Rota para o convidado se cadastrar
 Route::post('/cadastro-de-convidado', [AuthController::class, 'registerWithInvite']);
 
-Route::post('/test-email', [TestEmailController::class, 'sendTestEmail']);
+
 
 
 

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Invitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InviteMail;
 
 
 class InviteController extends Controller
@@ -14,7 +14,7 @@ class InviteController extends Controller
     {
         // Validar o e-mail do convidado
         $request->validate([
-            'email' => 'required|email|unique:invitations,email',
+            'email' => 'required|email',
         ]);
 
         // Gerar token único para o convite
@@ -29,6 +29,9 @@ class InviteController extends Controller
             'token' => $token,
             'expires_at' => $expiresAt,
         ]);
+
+        // Enviar o e-mail para o convidado
+        Mail::to($request->email)->send(new InviteMail($token));
 
         // Retornar o token gerado
         return response()->json([
