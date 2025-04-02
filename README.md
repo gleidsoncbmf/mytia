@@ -34,7 +34,7 @@ git clone https://github.com/gleidsoncbmf/mytia
 
 ### 2️⃣ Configurar as Variáveis de Ambiente
 
-Copie o arquivo `.env` e `.env.testing` disponiblizados por e-mail para a pasta raiz do projeto que você clonou.
+Copie o arquivo `.env` disponiblizado por e-mail para a pasta raiz do projeto que você clonou.
 
 
 ### 3️⃣ Instalar as Dependências
@@ -160,7 +160,7 @@ O Convidado deverá passar os seguintes parametros, incluindo o token que recebe
   "name" : "Convidado",
   "email" : "convidado@email.com",
   "password" : "123",
-  "password_confirmation" : 123,
+  "password_confirmation" : "123",
   "token" : "qqweodojs545qwd45d64wq545"
 }
 ```
@@ -358,7 +358,7 @@ Fluxo para criação e listagem de produtos.
 - Para rodar os testes:
 
 ```bash
-docker-compose run --rm mytia_web php artisan migrate
+docker-compose run --rm mytia_web php artisan test
 ```
 
 
