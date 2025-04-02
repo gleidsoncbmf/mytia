@@ -100,6 +100,8 @@ proteger a rota do graphql
 GIT 
 ZIP
 COMPOSER
+env
+gerar chave
 extansão php sql
 
 php artisan migrate
