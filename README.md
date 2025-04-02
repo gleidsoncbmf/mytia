@@ -24,6 +24,8 @@
 
 ### 1️⃣ Clonar o Repositório
 
+Certifique-se de ter o git instalado.
+
 Clone o repositório do Projeto:
 
 ```bash
@@ -76,7 +78,7 @@ Lembre-se de marcar o check key Accept no Headers e selecionar application/json 
 - Metodo: POST
 - Rota: 
 ```bash
-http://127.0.0.1:8000/api/register
+http://127.0.0.1:80/api/register
 ```
 
 Os parametros para criação de um usuário através dessa rota são, por exemplo:
@@ -87,7 +89,7 @@ Os parametros para criação de um usuário através dessa rota são, por exempl
     "email" : "usuario@email.com",
     "password" : "123",
     "pawword_confirmation" : "123",
-    "role" : "(pode ser "admin, "moderador, ou "user")"
+    "role" : "(pode ser admin moderador ou user)"
 }
 ```
 
@@ -100,7 +102,7 @@ Os parametros para criação de um usuário através dessa rota são, por exempl
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/login
+http://127.0.0.1:80/api/login
 ```
 
 O usuário deve utilizar seu e-mail e senha para realizar login na aplicação, por exemplo:
@@ -118,7 +120,7 @@ OBS 1: Ao fazer Login Será gerado um token.
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/logout
+http://127.0.0.1:80/api/logout
 ```
 
 Para fazer logou o usuário deve utilizar o token gerado durante o login:
@@ -134,7 +136,7 @@ OBS 1: Caso o Token seja diferente do obtido anteriormente, não haverá autoriz
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/gerar-convite
+http://127.0.0.1:80/api/gerar-convite
 ```
 O Token do administrador deve ser passado no header ou bearer.
 Apenas administradores tem permissão para gerar convites, e devem ser feitos passando email do convidado como parametro, por exemplo:
@@ -150,7 +152,7 @@ Ao gerar um convite, será disprado um e-mail para o convidado com o token para 
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/cadastro-de-convidado
+http://127.0.0.1:80/api/cadastro-de-convidado
 ```
 O Convidado deverá passar os seguintes parametros, incluindo o token que recebeu por e-mail, por exemplo:
 ```json
@@ -159,7 +161,7 @@ O Convidado deverá passar os seguintes parametros, incluindo o token que recebe
   "email" : "convidado@email.com",
   "password" : "123",
   "password_confirmation" : 123,
-  "token" : qqweodojs545qwd45d64wq545
+  "token" : "qqweodojs545qwd45d64wq545"
 }
 ```
 
@@ -172,7 +174,7 @@ O Convidado deverá passar os seguintes parametros, incluindo o token que recebe
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/password/email
+http://127.0.0.1:80/api/password/email
 ```
 - O Usuário deverá passar o e-mail como parâmetro para solicitar a recuperação de senha, por exemplo:
 
@@ -188,7 +190,7 @@ http://127.0.0.1:8000/api/password/email
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/password/reset
+http://127.0.0.1:80/api/password/reset
 ```
 - O Usuário deverá passar o e-mail como parâmetro para cadastrar a nova senha, além da confirmação e do token fornecido por e-mail, por exemplo:
 
@@ -205,7 +207,7 @@ http://127.0.0.1:8000/api/password/reset
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/editar-user/{id}
+http://127.0.0.1:80/api/editar-user/{id}
 ```
 
 - Apenas administradores podem alterar o perfil e permissões dos usuários. Deverá passar como parâmetro o id do usuario na url de requisição, e o(s) paramêtro(s) que deseja editar com os novos valores, por exemplo:
@@ -220,7 +222,7 @@ http://127.0.0.1:8000/api/editar-user/{id}
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/produtos
+http://127.0.0.1:80/api/produtos
 ```
 - Apenas Admnistradores e Moderadores podem cadastrar um novo produto. Os parametros são, por exemplo:
 
@@ -238,7 +240,7 @@ http://127.0.0.1:8000/api/produtos
 - Método: GET
 - Rota:
 ```bash
-http://127.0.0.1:8000/api/produtos
+http://127.0.0.1:80/api/produtos
 ```
 - Qualquer Usuário, mesmo não autenticado pode listar os produtos.
 
@@ -247,7 +249,7 @@ http://127.0.0.1:8000/api/produtos
 - Método: PUT
 - Rota:
 ```bash
-http://127.0.0.1:8000/produtos/editar/{id}
+http://127.0.0.1:80/produtos/editar/{id}
 ```
 - Apenas Administradores e Moderadores podem editar produtos. O ID do produto deve ser passado na URL de requisição, e os parametros devem ser passados com os novos valores desejados, por exemplo:
 
@@ -255,8 +257,7 @@ http://127.0.0.1:8000/produtos/editar/{id}
 {
   "nome" : "Produto 1 updated ",
   "descricao" : "Descricao 1 update",
-  "valor" : 150,
-  "avaliacao" : "Avaliacao 1 updated"
+  "valor" : 150
 }
 ```
 
@@ -265,7 +266,7 @@ http://127.0.0.1:8000/produtos/editar/{id}
 - Método: DELETE
 - Rota:
 ```bash
-http://127.0.0.1:8000/produtos/delete/{id}
+http://127.0.0.1:80/produtos/delete/{id}
 ```
 - Apenas Administradores e Moderadores podem excluir um produto. O id do produto deve ser passado na URL de requisição, lembrando de inserir o token de autenticação no header ou bearer.
 
@@ -274,7 +275,7 @@ http://127.0.0.1:8000/produtos/delete/{id}
 - Método: POST
 - Rota:
 ```bash
-http://127.0.0.1:8000/produtos/{produto}/avaliacoes
+http://127.0.0.1:80/produtos/{produto}/avaliacoes
 ```
 
 - Apenas Usuarios autenticados podem realizar avaliações de um produto. O id do produto a ser avaliado deve ser passado na URL de requisição. E o comentario deve ser passado no body, por exemplo:
@@ -293,7 +294,7 @@ http://127.0.0.1:8000/produtos/{produto}/avaliacoes
 - Método: GET
 - Rota:
 ```bash
-http://127.0.0.1:8000/produtos/{produto}/avaliacoes
+http://127.0.0.1:80/produtos/{produto}/avaliacoes
 ```
 - Qualquer usuário, mesmo não autenticado, pode listar as avaliações de um produto. O id do produto deve ser passado na url de requisição para listar as avaliações do mesmo.
 
@@ -302,7 +303,7 @@ http://127.0.0.1:8000/produtos/{produto}/avaliacoes
 - Método: DELETE
 - Rota:
 ```bash
-http://127.0.0.1:8000/avaliacoes/{avaliacao}
+http://127.0.0.1:80/avaliacoes/{avaliacao}
 ```
 
 Apenas os proprios usuario que fez a avaliação ou administradores podem excluir. O id da avalição deve ser passado na url de requisição para exclusão da mesma. Lembrando do token de autenticação.
@@ -323,7 +324,7 @@ A API possui suporte a GraphQL através do Lighthouse.
 - Método: GET
 - Rota:
 ```bash
-http://127.0.0.1:8000/graphql
+http://127.0.0.1:80/graphql
 ```
 
 

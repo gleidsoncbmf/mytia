@@ -29,4 +29,4 @@ RUN composer install
 RUN a2enmod rewrite
 
 # Restart do apache para pegar configuracoes de DocumentRoot
-RUN service apache2 restart
+RUN service apache2 restart
