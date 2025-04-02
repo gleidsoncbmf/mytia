@@ -1,3 +1,2 @@
 - testing
-- `docker --version `
--     docker --version
+- `'docker --version `'
