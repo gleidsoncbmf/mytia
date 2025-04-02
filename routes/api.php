@@ -36,16 +36,16 @@ Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->delete('
 // });
 
 //Rotas para usuários autenticados
-Route::get('/produtos', [ProdutoController::class,'index'])->middleware('auth:sanctum');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/produtos/{produto}/avaliacoes', [AvaliacaoController::class, 'store'])->middleware('auth:sanctum');
-Route::get('/produtos/{produto}/avaliacoes', [AvaliacaoController::class, 'index'])->middleware('auth:sanctum');
 Route::delete('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'destroy'])->middleware('auth:sanctum');
 
 //Rotas para todos, inclusive não autenticados
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+Route::get('/produtos', [ProdutoController::class,'index']);
+Route::get('/produtos/{produto}/avaliacoes', [AvaliacaoController::class, 'index']);
 
 //Rota para criar uma nova senha
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset');

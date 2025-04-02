@@ -65,8 +65,8 @@ Lembre-se de marcar o check key Accept no Headers e selecionar application/json 
 
 ### 1️⃣ Criação de Usuários
 
-Metodo: POST
-Rota: 
+- Metodo: POST
+- Rota: 
 ```bash
 http://127.0.0.1:8000/api/register
 ```
@@ -144,7 +144,7 @@ Ao gerar um convite, será disprado um e-mail para o convidado com o token para 
 ```bash
 http://127.0.0.1:8000/api/cadastro-de-convidado
 ```
-O Convidado deverá passar os seguintes parametros, incluindo o token que recebeu do administrador, por exemplo:
+O Convidado deverá passar os seguintes parametros, incluindo o token que recebeu por e-mail, por exemplo:
 ```json
 {
   "name" : "Convidado",
@@ -158,6 +158,191 @@ O Convidado deverá passar os seguintes parametros, incluindo o token que recebe
 - OBS 1: O convidado só irá conseguir enviar a requisição caso o token esteja correto ao email que foi relacionado, caso qualquer um dos dois esteja errado o usuário não irá conseguir se cadastrar.
 
 - OBS 2: Por padrão o usuário receberá a role de "user", que poderá ser alterada por um adminstrador posteriormente.
+
+### 6️⃣ Recuperação de Senha por E-mail
+
+- Método: POST
+- Rota:
+```bash
+http://127.0.0.1:8000/api/password/email
+```
+- O Usuário deverá passar o e-mail como parâmetro para solicitar a recuperação de senha, por exemplo:
+
+```json
+{
+  "email" : "convidado@email.com",
+}
+```
+- Após isso, será enviado um e-mail ao usuário com o Token para realizar alteração da senha anterior, cadastrando uma nova senha.
+
+### 7️⃣ Cadastrando uma nova senha
+
+- Método: POST
+- Rota:
+```bash
+http://127.0.0.1:8000/api/password/reset
+```
+- O Usuário deverá passar o e-mail como parâmetro para cadastrar a nova senha, além da confirmação e do token fornecido por e-mail, por exemplo:
+
+```json
+{
+  "email" : "convidado@email.com",
+  "password" : "123",
+  "password_confirmation" : "123",
+  "token" : "2839edd79d4b1427a52c3673bbd8ab464e4f42ee34737433491455b0e930f699"
+}
+```
+### 8️⃣ Alteração de Perfil e Permissões 
+
+- Método: POST
+- Rota:
+```bash
+http://127.0.0.1:8000/api/editar-user/{id}
+```
+
+- Apenas administradores podem alterar o perfil e permissões dos usuários. Deverá passar como parâmetro o id do usuario na url de requisição, e o(s) paramêtro(s) que deseja editar com os novos valores, por exemplo:
+
+```json
+{
+   "role" : "moderador" 
+}
+```
+### 9️⃣ Cadastro de Produto
+
+- Método: POST
+- Rota:
+```bash
+http://127.0.0.1:8000/api/produtos
+```
+- Apenas Admnistradores e Moderadores podem cadastrar um novo produto. Os parametros são, por exemplo:
+
+```json
+{
+  "nome" : "Produto 1",
+  "descricao" : "Descricao 1",
+  "valor" : 50.56
+}
+```
+- Obs: O valor pode ser um número com até duas casas decimais. 
+
+### 9️⃣ Listagem de Produtos
+
+- Método: GET
+- Rota:
+```bash
+http://127.0.0.1:8000/api/produtos
+```
+- Qualquer Usuário, mesmo não autenticado pode listar os produtos.
+
+### 9️⃣ Editar um Produto
+
+- Método: PUT
+- Rota:
+```bash
+http://127.0.0.1:8000/produtos/editar/{id}
+```
+- Apenas Administradores e Moderadores podem editar produtos. O ID do produto deve ser passado na URL de requisição, e os parametros devem ser passados com os novos valores desejados, por exemplo:
+
+```json
+{
+  "nome" : "Produto 1 updated ",
+  "descricao" : "Descricao 1 update",
+  "valor" : 150,
+  "avaliacao" : "Avaliacao 1 updated"
+}
+```
+
+### 🔟 Excluir um Produto
+
+- Método: DELETE
+- Rota:
+```bash
+http://127.0.0.1:8000/produtos/delete/{id}
+```
+- Apenas Administradores e Moderadores podem excluir um produto. O id do produto deve ser passado na URL de requisição, lembrando de inserir o token de autenticação no header ou bearer.
+
+### 1️⃣1️⃣ Cadastro de Avaliações associadas a um produto
+
+- Método: POST
+- Rota:
+```bash
+http://127.0.0.1:8000/produtos/{produto}/avaliacoes
+```
+
+- Apenas Usuarios autenticados podem realizar avaliações de um produto. O id do produto a ser avaliado deve ser passado na URL de requisição. E o comentario deve ser passado no body, por exemplo:
+
+```json
+{
+  "comentario" : "Produto Muito Bom!"
+}
+```
+- Obs : A API da NPL Cloud está integrada a nossa aplicação, ela faz uma analise de sentimento baseada no comentário feito.
+
+### 1️⃣2️⃣ Listagem de avaliações por produto, incluindo análise de sentimento
+
+- Método: GET
+- Rota:
+```bash
+http://127.0.0.1:8000/produtos/{produto}/avaliacoes
+```
+- Qualquer usuário, mesmo não autenticado, pode listar as avaliações de um produto. O id do produto deve ser passado na url de requisição para listar as avaliações do mesmo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 🔐 Autenticação e Segurança
 
