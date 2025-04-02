@@ -1,11 +1,18 @@
 # 📌 Mytia
 
-API para cadastro e avaliação de produtos, com implementação para gerenciar usuários e permissões.  
+- API para cadastro e avaliação de produtos.
+- Gerenciamento de Usuários e Permissões(Sanctum).
+- Convite e recuperação de senha por e-mail.
+- Análise de sentimento das avaliações através da API da NPLCloud.
+- Jobs para processar as análises de sentimento em background.
+- Cache para otimizar consultas recorrentes, como listar produtos e listar avaliações de um produto.
+- GraphQL para consultas personalizadas.
+- Cobertura de Testes Unitários e de Integração.
 
 ## 🚀 Tecnologias Utilizadas
 
 - PHP (Laravel 12)
-- NPLCloud (API) 
+- NPLCloud (API para analise de Sentimentos) 
 - GraphQL (Lighthouse)
 - Docker
 - MySQL
@@ -225,7 +232,7 @@ http://127.0.0.1:8000/api/produtos
 ```
 - Obs: O valor pode ser um número com até duas casas decimais. 
 
-### 9️⃣ Listagem de Produtos
+### 🔟 Listagem de Produtos
 
 - Método: GET
 - Rota:
@@ -234,7 +241,7 @@ http://127.0.0.1:8000/api/produtos
 ```
 - Qualquer Usuário, mesmo não autenticado pode listar os produtos.
 
-### 9️⃣ Editar um Produto
+### 1️⃣1️⃣ Editar um Produto
 
 - Método: PUT
 - Rota:
@@ -252,7 +259,7 @@ http://127.0.0.1:8000/produtos/editar/{id}
 }
 ```
 
-### 🔟 Excluir um Produto
+### 1️⃣2️⃣ Excluir um Produto
 
 - Método: DELETE
 - Rota:
@@ -261,7 +268,7 @@ http://127.0.0.1:8000/produtos/delete/{id}
 ```
 - Apenas Administradores e Moderadores podem excluir um produto. O id do produto deve ser passado na URL de requisição, lembrando de inserir o token de autenticação no header ou bearer.
 
-### 1️⃣1️⃣ Cadastro de Avaliações associadas a um produto
+### 1️⃣3️⃣ Cadastro de Avaliações associadas a um produto
 
 - Método: POST
 - Rota:
@@ -276,9 +283,11 @@ http://127.0.0.1:8000/produtos/{produto}/avaliacoes
   "comentario" : "Produto Muito Bom!"
 }
 ```
-- Obs : A API da NPL Cloud está integrada a nossa aplicação, ela faz uma analise de sentimento baseada no comentário feito.
+- Obs 1: A API da NPL Cloud está integrada a nossa aplicação, ela faz uma analise de sentimento baseada no comentário feito.
 
-### 1️⃣2️⃣ Listagem de avaliações por produto, incluindo análise de sentimento
+- Obs 2: Utilizamos jobs para processar as análises de sentimento em background.
+
+### 1️⃣4️⃣ Listagem de avaliações por produto, incluindo análise de sentimento
 
 - Método: GET
 - Rota:
@@ -287,62 +296,23 @@ http://127.0.0.1:8000/produtos/{produto}/avaliacoes
 ```
 - Qualquer usuário, mesmo não autenticado, pode listar as avaliações de um produto. O id do produto deve ser passado na url de requisição para listar as avaliações do mesmo.
 
+### 1️⃣5️⃣ Exclusão de Avaliações
 
+- Método: DELETE
+- Rota:
+```bash
+http://127.0.0.1:8000/avaliacoes/{avaliacao}
+```
 
+Apenas os proprios usuario que fez a avaliação ou administradores podem excluir. O id da avalição deve ser passado na url de requisição para exclusão da mesma. Lembrando do token de autenticação.
 
+### 1️⃣5️⃣ Consultas via GraphQL
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Método: GET
+- Rota:
+```bash
+http://127.0.0.1:8000/graphql
+```
 
 ## 🔐 Autenticação e Segurança
 
@@ -356,30 +326,31 @@ Authorization: Bearer SEU_TOKEN_AQUI
 
 A API possui suporte a GraphQL através do Lighthouse.
 
-### 🔍 Exemplo de Query para Listar Produtos:
+### 🔍 Exemplo de Query para Listar Produtos com suas avaliações:
+
+Foi implantado Graphql para algumas consultas, como por exemplo listar os produtos e suas respectivas avaliações com os dados de quem avaliou, você pode testar utilizando esse paramêtro:
 
 ```json
 {
-  "query": "{ produtos { id nome valor } }"
-}
-```
-
-### 🔍 Exemplo de Query para Listar Produto com Avaliações:
-
-```json
-{
-  "query": "{ produto(id: 1) { id nome valor avaliacoes { comentario sentimento user { name email } } } }"
+  "query": "{ produto(id: 1) { id nome valor avaliacoes { comentario sentimento user { name email } } } }"  
 }
 ```
 
 ## 🧪 Testes
 
-Para rodar os testes:
+- Unitários
+ -- Criação de Produto
+ -- Criação de Usuário
+
+- Integração
+ -- Fluxo para cadastrar uma avaliação(criação de usuario, criação de produto, associação de produto)
+ -- Fluxo para gerar um convite, e cadastro através do convite.
+ -- Fluxo para criação e listagem de produtos.
+
+- Para rodar os testes:
 
 ```bash
-php artisan test
+docker-compose run --rm mytia_web php artisan migrate
 ```
 
-## 📜 Licença
 
-Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para mais detalhes.
