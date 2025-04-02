@@ -7,6 +7,7 @@
 - Jobs para processar as análises de sentimento em background.
 - Cache para otimizar consultas recorrentes, como listar produtos e listar avaliações de um produto.
 - GraphQL para consultas personalizadas.
+- Observers para gerenciar eventos nos Sistema.
 - Cobertura de Testes Unitários e de Integração.
 
 ## 🚀 Tecnologias Utilizadas
@@ -336,16 +337,22 @@ Foi implantado Graphql para algumas consultas, como por exemplo listar os produt
 }
 ```
 
+## 🔍 Observers
+
+A API Conta com Observers para gerenciar eventos no sistema, como a criação e exclusão de produtos e avaliações por exemplo.
+
+- Os eventos podem ser visualizados em 'storage/logs/laravel.log'.
+
 ## 🧪 Testes
 
 - Unitários
- -- Criação de Produto
- -- Criação de Usuário
+Criação de Produto
+Criação de Usuário
 
 - Integração
- -- Fluxo para cadastrar uma avaliação(criação de usuario, criação de produto, associação de produto)
- -- Fluxo para gerar um convite, e cadastro através do convite.
- -- Fluxo para criação e listagem de produtos.
+Fluxo para cadastrar uma avaliação(criação de usuario, criação de produto, associação de produto)
+Fluxo para gerar um convite, e cadastro através do convite.
+Fluxo para criação e listagem de produtos.
 
 - Para rodar os testes:
 

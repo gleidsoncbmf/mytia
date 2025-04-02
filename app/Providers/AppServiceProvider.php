@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Produto;
+use App\Observers\ProdutoObserver;
+use App\Models\Avaliacao;
+use App\Observers\AvaliacaoObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Produto::observe(ProdutoObserver::class);
+        Avaliacao::observe(AvaliacaoObserver::class);
         Schema::defaultStringLength(191);
     }
 }
