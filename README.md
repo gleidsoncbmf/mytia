@@ -24,7 +24,7 @@ git clone https://github.com/gleidsoncbmf/mytia
 
 ### 2️⃣ Configurar as Variáveis de Ambiente
 
-Copie o arquivo `.env` e `.env.tensting` para a pasta raiz do projeto que você clonou.
+Copie o arquivo `.env` e `.env.testing` disponiblizados por e-mail para a pasta raiz do projeto que você clonou.
 
 
 ### 3️⃣ Instalar as Dependências
@@ -51,11 +51,73 @@ docker-compose run --rm mytia_web php artisan key:generate
 docker-compose run --rm mytia_web php artisan migrate
 ```
 
-### 6️⃣ Iniciar o Servidor
+### 6️⃣ Api Disponível
 
+Após os comandos, a api estará disponível na seguinte rota:
 ```bash
-php artisan serve
+http://127.0.0.1:80/api
 ```
+### 📡 POSTMAN e Rotas
+
+A partir de agora, trabalharemos as requisições atráves do PostMan, o arquivo Json para importação com as rotas já salvas, está disponível no repositorio do projeto, e no e-mail enviado. Baixe o arquivo e faça a importação no PostMan, para facilitar o uso da Api.
+
+Lembre-se de marcar o check key Accept no Headers e selecionar application/json em Value, trabalharemos no postman com requisições via json e Bearer token authorization. Se preferir, também pode passar o token no header. 
+
+###1️⃣ Criação de Usuários
+
+Rota: 
+```bash
+http://127.0.0.1:8000/api/register
+```
+Metodo: POST
+Os parametros para criação de um usuário através dessa rota são, por exemplo:
+    
+```json
+{
+    "name": "usuario 1",
+    "email" : "usuario@email.com",
+    "password" : "123",
+    "pawword_confirmation" : "123",
+    "role" : "(pode ser "admin, "moderador, ou "user")"
+}
+```
+
+OBS 1: Essa rota não contém restrição pois foi considerado o uso dela para criação de usuarios em geral para fins de teste, mas nada impede de que seja restrita caso seja solicitado.
+
+OBS 2: Sempre que um usuário é criado é gerado um token, da mesma forma que sempre que um usuário faz login também é gerado um token, e quando o usuário faz logout os tokens são deletados. Os Tokens serão utilizados para autenticação na aplicação.
+
+###2️⃣Login
+
+Rota:
+```bash
+http://127.0.0.1:8000/api/login
+```
+Método: POST
+
+O usuário deve utilizar seu e-mail e senha para realizar login na aplicação, por exemplo:
+```json
+{
+    "email": "usuario@email.com",
+    "password" : "123"
+}
+```
+
+OBS 1: Ao fazer Login Séra gerado um token.
+
+###3️⃣Logout:
+Rota:
+```bash
+http://127.0.0.1:8000/api/logout
+```
+Método: POST
+
+Para fazer logou o usuário deve utilizar o token gerado durante o login:
+- Ir na aba Authorization
+- Em Auth Type selecionar: Bearer Token
+- Em Token , Colar o token gerado anteriormente e enviar a requisição
+- Com isso o usuário conseguirar encerrar a sessão
+
+OBS 1: Caso o Token seja diferente do obtido anteriormente, não haverá autorização para encerrar a sessão
 
 ## 🔐 Autenticação e Segurança
 

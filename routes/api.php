@@ -28,6 +28,13 @@ Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->post('/p
 Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->put('/produtos/editar/{id}', [ProdutoController::class, 'update']);
 Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->delete('/produtos/delete/{id}', [ProdutoController::class, 'destroy']);
 
+// Rotas do Administrador e Moderador
+// Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->group(function () {
+//     Route::post('/produtos', [ProdutoController::class, 'store']);
+//     Route::put('/produtos/editar/{id}', [ProdutoController::class, 'update']);
+//     Route::delete('/produtos/delete/{id}', [ProdutoController::class, 'destroy']);
+// });
+
 //Rotas para usuários autenticados
 Route::get('/produtos', [ProdutoController::class,'index'])->middleware('auth:sanctum');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
