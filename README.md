@@ -344,7 +344,7 @@ Foi implantado Graphql para algumas consultas, como por exemplo listar os produt
 
 A API Conta com Observers para gerenciar eventos no sistema, como a criação e exclusão de produtos e avaliações por exemplo.
 
-- Os eventos podem ser visualizados em 'storage/logs/laravel.log'.
+- Os eventos podem ser visualizados em `storage/logs/laravel.log`.
 
 ## 🧪 Testes
 
