@@ -61,6 +61,8 @@ docker-compose run --rm mytia_web php artisan key:generate
 docker-compose run --rm mytia_web php artisan migrate
 ```
 
+- Obs: Os serviços podem demorar um pouco a estarem disponíveis, caso dê algum erro durante a migração, espere um pouco e tente executar novamente o comando. 
+
 ### 6️⃣ Api Disponível
 
 Após os comandos, a api estará disponível na seguinte rota:
