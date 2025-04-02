@@ -15,4 +15,4 @@ Proteger a Rota do Graphql
 
 Dúvida:
 
-As avaliações devem ser excluidas quando o produto for excluido ? Isso permitiria indiretamente que moderadores também possuam o poder pra excluir avaliações.
+As avaliações devem ser excluidas quando o produto for excluido ? 
