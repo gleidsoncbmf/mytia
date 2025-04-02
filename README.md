@@ -206,7 +206,7 @@ http://127.0.0.1:80/api/password/reset
 ```
 ### 8️⃣ Alteração de Perfil e Permissões 
 
-- Método: POST
+- Método: PUT
 - Rota:
 ```bash
 http://127.0.0.1:80/api/editar-user/{id}
