@@ -7,7 +7,7 @@
 - Jobs para processar as análises de sentimento em background.
 - Cache para otimizar consultas recorrentes, como listar produtos e listar avaliações de um produto.
 - GraphQL para consultas personalizadas.
-- Observers para gerenciar eventos nos Sistema.
+- Observers para gerenciar eventos no Sistema.
 - Cobertura de Testes Unitários e de Integração.
 
 ## 🚀 Tecnologias Utilizadas
