@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AdminOrModeratorMiddleware;
+use Nuwave\Lighthouse\Http\GraphQLController;
 
 
 
@@ -20,6 +21,7 @@ use App\Http\Middleware\AdminOrModeratorMiddleware;
 //Rotas do Administrador
 Route::middleware(['auth:sanctum', AdminMiddleware::class])->put('/editar-user/{id}', [UserController::class, 'update']);
 Route::middleware('auth:sanctum', AdminMiddleware::class)->post('/gerar-convite', [InviteController::class, 'generateInvite']);
+Route::middleware('auth:sanctum',AdminMiddleware::class)->post('/graphql', [GraphQLController::class, 'query']);
 
 //Rotas do Administrador e Moderador
 Route::middleware(['auth:sanctum', AdminOrModeratorMiddleware::class])->post('/produtos', [ProdutoController::class, 'store']);

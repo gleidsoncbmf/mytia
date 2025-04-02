@@ -1,0 +1,33 @@
+type Query {
+    users: [User!]! @all
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type Query {
+  produtos: [Produto!]! @all
+  produto(id: ID!): Produto @find
+}
+
+type Produto {
+  id: ID!
+  nome: String!
+  valor: Float!
+  avaliacoes: [Avaliacao]
+}
+
+type Avaliacao {
+  id: ID!
+  comentario: String!
+  sentimento: String!  
+  user: Usuario  
+}
+
+type Usuario {
+  name: String!
+  email: String!
+}
