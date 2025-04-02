@@ -306,13 +306,6 @@ http://127.0.0.1:8000/avaliacoes/{avaliacao}
 
 Apenas os proprios usuario que fez a avaliação ou administradores podem excluir. O id da avalição deve ser passado na url de requisição para exclusão da mesma. Lembrando do token de autenticação.
 
-### 1️⃣5️⃣ Consultas via GraphQL
-
-- Método: GET
-- Rota:
-```bash
-http://127.0.0.1:8000/graphql
-```
 
 ## 🔐 Autenticação e Segurança
 
@@ -325,6 +318,13 @@ Authorization: Bearer SEU_TOKEN_AQUI
 ## 📊 GraphQL - Consultas e Mutations
 
 A API possui suporte a GraphQL através do Lighthouse.
+
+- Método: GET
+- Rota:
+```bash
+http://127.0.0.1:8000/graphql
+```
+
 
 ### 🔍 Exemplo de Query para Listar Produtos com suas avaliações:
 
