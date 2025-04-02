@@ -1,1 +1,18 @@
-Service Providers e Repositories
+Proposta de Melhoria do Projeto:
+
+Criação de filtros para exibir listas dos usuários baseado nos dados passados. Com isso, o administrador pode visualizar e gerenciar melhor, não dependendo de conhecer apenas o ID do usuario para fazer um update por exemplo.
+
+Utilizar Service Providers e Repositories para desacoplar regras de negócio com mais eficiencia. 
+
+Utilizar REDIS para Cache.
+
+Implementar e Executar os testes em paralelo.
+
+Proteger a Rota do Graphql
+
+
+
+
+Dúvida:
+
+As avaliações devem ser excluidas quando o produto for excluido ? Isso permitiria indiretamente que moderadores também possuam o poder pra excluir avaliações.

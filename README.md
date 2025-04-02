@@ -66,7 +66,7 @@ http://127.0.0.1:80/api
 ```
 ### 📡 POSTMAN e Rotas
 
-A partir de agora, trabalharemos as requisições atráves do PostMan, o arquivo Json para importação com as rotas já salvas, está disponível no repositorio do projeto, e no e-mail enviado. Baixe o arquivo e faça a importação no PostMan, para facilitar o uso da Api.
+A partir de agora, trabalharemos as requisições atráves do PostMan. O arquivo Json para importação com as rotas já salvas está disponível no repositorio do projeto e no e-mail enviado. Baixe o arquivo e faça a importação no PostMan, para facilitar o uso da Api.
 
 Lembre-se de marcar o check key Accept no Headers e selecionar application/json em Value, trabalharemos no postman com requisições via json e Bearer token authorization. Se preferir, também pode passar o token no header. 
 
