@@ -2,39 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
-
 
 class UserController extends Controller
 {
+    protected $userService;
 
-    public function update(Request $request, $id)
-{
-    // Buscar o usuário pelo ID
-    $user = User::find($id);
-
-    // Se não encontrar, retorna erro
-    if (!$user) {
-        return response()->json(['message' => 'Usuário não encontrado.'], 404);
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
     }
 
-    // Validação dos campos
-    $fields = $request->validate([
-        'name' => 'max:255',
-        'email' => 'email|unique:users,email,' . $id, // Permite manter o mesmo e-mail
-        'role' => 'nullable|in:admin,moderador,user', // Apenas valores permitidos
-        'password' => 'nullable|confirmed' // Senha opcional
-    ]);
+    public function update(Request $request, $id)
+    {
+        $fields = $request->validate([
+            'name' => 'max:255',
+            'email' => 'email|unique:users,email,' . $id, // Permite manter o mesmo e-mail
+            'role' => 'nullable|in:admin,moderador,user', // Apenas valores permitidos
+            'password' => 'nullable|confirmed', // Senha opcional
+        ]);
 
-    // Atualizar os campos do usuário
-    $user->update($fields);
+        $user = $this->userService->updateUser($id, $fields);
 
-    return response()->json([
-        'message' => 'Usuário atualizado com sucesso!',
-        'user' => $user
-    ]);
-}
+        if (!$user) {
+            return response()->json(['message' => 'Usuário não encontrado.'], 404);
+        }
 
-
+        return response()->json([
+            'message' => 'Usuário atualizado com sucesso!',
+            'user' => $user
+        ]);
+    }
 }

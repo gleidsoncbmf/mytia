@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique(); // email do convidado
+            $table->string('email'); // email do convidado
             $table->string('token')->unique(); // código do convite
             $table->timestamp('expires_at'); // quando o convite expira
             $table->timestamps();

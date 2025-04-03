@@ -5,6 +5,7 @@
 - Convite e recuperação de senha por e-mail.
 - Análise de sentimento das avaliações através da API da NPLCloud.
 - Jobs para processar as análises de sentimento em background.
+- Uso de Interfaces, Service Providers e Repositories para desacoplar regras de negócio.
 - Cache para otimizar consultas recorrentes, como listar produtos e listar avaliações de um produto.
 - GraphQL para consultas personalizadas.
 - Observers para gerenciar eventos no Sistema.

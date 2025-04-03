@@ -2,100 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\AuthService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Invitation;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-    public function register (Request $request){
+    protected $authService;
 
-       $fields = $request->validate([
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
+    public function register(Request $request): JsonResponse
+    {
+        $data = $request->validate([
             'name' => 'required|max:255',
-            'email' =>'required|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
             'role' => 'in:admin,moderador,user',
         ]);
 
-        $user = User::create($fields);
-        $token = $user->createToken($request->name);
-
-       return [
-        'user' => $user,
-        'token' => $token
-       ];
+        return response()->json($this->authService->register($data), 201);
     }
 
-
-
-    public function login (Request $request){
-
-        $fields = $request->validate([
-
-            'email' =>'required|email|exists:users',
+    public function login(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'email' => 'required|email|exists:users,email',
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)){
-            return [
-                'message:' => "Credenciais Incorretas."
-            ];
-        }
-
-        $token = $user->createToken($user->name);
-
-        return [
-            'user' => $user,
-            'token' => $token->plainTextToken
-        ];
+        return response()->json($this->authService->login($data));
     }
 
-    public function logout (Request $request){
-
-        $request->user()->tokens()->delete();
-
-        return [
-            'message' => 'Sessão Encerrada.' 
-        ];
-    }
-
-    public function registerWithInvite(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        // Validar o token de convite
-        $request->validate([
+        return response()->json($this->authService->logout($request->user()));
+    }
+
+    public function registerWithInvite(Request $request): JsonResponse
+    {
+        $data = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email',
             'password' => 'required|confirmed',
             'token' => 'required',
         ]);
 
-        // Verificar se o convite é válido
-        $invitation = Invitation::where('token', $request->token)
-                                ->where('email', $request->email)
-                                ->where('expires_at', '>', now())
-                                ->first();
-
-        if (!$invitation) {
-            return response()->json(['error' => 'Convite inválido ou expirado.'], 400);
-        }
-
-        // Registrar o usuário
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'user', // Usuário com role comum
-        ]);
-
-        // Marcar o convite como usado
-        $invitation->delete(); // O convite agora é consumido, ou você pode mudar o status
-
-        // Retornar sucesso
-        return response()->json(['message' => 'Usuário registrado com sucesso!'], 200);
+        return response()->json($this->authService->registerWithInvite($data));
     }
-
-   
 }

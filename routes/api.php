@@ -1,13 +1,11 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\TestEmailController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\PasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
@@ -38,12 +36,12 @@ Route::middleware('auth:sanctum')->group(function () {
 //Rotas para todos, inclusive não autenticados
 Route::post('/register', [AuthController::class, 'register']); 
 Route::post('/login', [AuthController::class, 'login']); 
-Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']); 
+Route::post('password/email', [PasswordController::class, 'sendResetLinkEmail']); 
 Route::get('/produtos', [ProdutoController::class,'index']);
 Route::get('/produtos/{produto}/avaliacoes', [AvaliacaoController::class, 'index']);
 
 //Rota para criar uma nova senha
-Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.reset'); 
+Route::post('password/reset', [PasswordController::class, 'resetPassword'])->name('password.reset'); 
 
 //Rota para o convidado se cadastrar
 Route::post('/cadastro-de-convidado', [AuthController::class, 'registerWithInvite']); 

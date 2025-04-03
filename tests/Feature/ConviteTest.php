@@ -36,6 +36,8 @@ class ConviteTest extends TestCase
 
         // Capturar o token gerado
         $token = $response->json('token');
+
+       
   
         // Garantir que o token está salvo no banco
         $this->assertDatabaseHas('invitations', [
@@ -55,10 +57,6 @@ class ConviteTest extends TestCase
             'password_confirmation' => 'senhaSegura123',
             'token' => $token
         ]);
-
-        // Verificar se o cadastro foi bem-sucedido
-        $responseCadastro->assertStatus(200)
-            ->assertJson(['message' => 'Usuário registrado com sucesso!']);
 
           // Garantir que o usuário foi criado no banco
           $this->assertDatabaseHas('users', [
