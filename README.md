@@ -77,7 +77,7 @@ A forma mais prática de acessar as Rotas documentadas é através do Swagger, q
 ```bash
 http://127.0.0.1:80/api/documentation
 ```
-- O Swagger conta com uma autenticação global das rotas, caso queira fazer uso, basta usar o bearer token gerado ao criar usuário ou fazer login. Mas se preferir, pode fazer autenticação de forma individual em cada rota, no cadeado contido em cada bloco. 
+- O Swagger conta com uma autenticação global das rotas, basta usar em um dos cadeados o bearer token gerado ao criar usuário ou fazer login. 
 
 Caso prefira fazer uso do Postman, basta fazer a importação do arquivo json disponibilizado através do e-mail.
 

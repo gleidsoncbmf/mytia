@@ -19,6 +19,11 @@ class AvaliacaoController extends Controller
 
     public function store(Request $request, $produtoId)
     {
+        $produto = Produto::find($produtoId);
+        if (!$produto) {
+            return response()->json(['message' => 'Produto não encontrado.'], 404);
+        }
+        
         $request->validate(['comentario' => 'required|string']);
 
         $avaliacao = $this->avaliacaoService->storeAvaliacao($produtoId, $request->comentario);
@@ -35,6 +40,7 @@ class AvaliacaoController extends Controller
 
     public function destroy(Produto $produto, Avaliacao $avaliacao)
     {
+
         if ($avaliacao->user_id !== Auth::id() && !Auth::user()->is_admin) {
             return response()->json(['message' => 'Você não tem permissão para excluir esta avaliação.'], 403);
         }
