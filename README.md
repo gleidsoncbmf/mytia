@@ -344,7 +344,7 @@ Foi implantado Graphql para algumas consultas, como por exemplo listar os produt
 
 ```json
 {
-  "query": "{ produto(id: 1) { id nome valor avaliacoes { comentario sentimento user { name email } } } }"  
+  "query": "{ produtos { id nome valor avaliacoes { comentario sentimento user { name email } } } }"  
 }
 ```
 
