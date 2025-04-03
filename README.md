@@ -7,6 +7,7 @@
 - Jobs para processar as análises de sentimento em background.
 - Uso de Interfaces, Service Providers e Repositories para desacoplar regras de negócio.
 - Cache para otimizar consultas recorrentes, como listar produtos e listar avaliações de um produto.
+- EndPoint com Swagger Documentado para acesso as Rotas
 - GraphQL para consultas personalizadas.
 - Observers para gerenciar eventos no Sistema.
 - Cobertura de Testes Unitários e de Integração.
@@ -17,6 +18,7 @@
 - NPLCloud (API para analise de Sentimentos) 
 - GraphQL (Lighthouse)
 - Docker
+- Swagger
 - MySQL
 - Sanctum (Autenticação)
 - PHP Unit (Testes)
@@ -25,7 +27,7 @@
 
 ### 1️⃣ Clonar o Repositório
 
-Certifique-se de ter o git instalado.
+Certifique-se de ter o git, docker e docker-compose instalados.
 
 Clone o repositório do Projeto:
 
@@ -66,15 +68,20 @@ docker-compose run --rm mytia_web php artisan migrate
 
 ### 6️⃣ Api Disponível
 
-Após os comandos, a api estará disponível na seguinte rota:
+Após os comandos, a api estará disponível.
+
+### 📡 Swagger, Postman e Rotas
+
+A forma mais prática de acessar as Rotas documentadas é através do Swagger, que foi implementando e está diponível na seguinte rota:
+
 ```bash
-http://127.0.0.1:80/api
+http://127.0.0.1:80/api/documentation
 ```
-### 📡 POSTMAN e Rotas
+- O Swagger conta com uma autenticação global das rotas, caso queira fazer uso, basta usar o bearer token gerado ao criar usuário ou fazer login. Mas se preferir, pode fazer autenticação de forma individual em cada rota, no cadeado contido em cada bloco. 
 
-A partir de agora, trabalharemos as requisições atráves do PostMan. O arquivo Json para importação com as rotas já salvas está disponível no repositorio do projeto e no e-mail enviado. Baixe o arquivo e faça a importação no PostMan, para facilitar o uso da Api.
+Caso prefira fazer uso do Postman, basta fazer a importação do arquivo json disponibilizado através do e-mail.
 
-Lembre-se de marcar o check key Accept no Headers e selecionar application/json em Value, trabalharemos no postman com requisições via json e Bearer token authorization. Se preferir, também pode passar o token no header. 
+Segue uma breve explicação sobre as Rotas e algumas funcionalidaes:  
 
 ### 1️⃣ Criação de Usuários
 
@@ -126,7 +133,7 @@ OBS 1: Ao fazer Login Será gerado um token.
 http://127.0.0.1:80/api/logout
 ```
 
-Para fazer logou o usuário deve utilizar o token gerado durante o login:
+Para fazer logout o usuário deve utilizar o token gerado durante o login:
 - Ir na aba Authorization
 - Em Auth Type selecionar: Bearer Token
 - Em Token , Colar o token gerado anteriormente e enviar a requisição
