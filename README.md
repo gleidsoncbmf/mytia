@@ -3,7 +3,7 @@
 - API para cadastro e avaliação de produtos.
 - Gerenciamento de Usuários e Permissões(Sanctum).
 - Convite e recuperação de senha por e-mail.
-- Análise de sentimento das avaliações através da API da NPLCloud.
+- Análise de sentimento das avaliações através da API da NLPCloud.
 - Jobs para processar as análises de sentimento em background.
 - Uso de Interfaces, Service Providers e Repositories para desacoplar regras de negócio.
 - Cache para otimizar consultas recorrentes, como listar produtos e listar avaliações de um produto.
@@ -15,7 +15,7 @@
 ## 🚀 Tecnologias Utilizadas
 
 - PHP (Laravel 12)
-- NPLCloud (API para analise de Sentimentos) 
+- NLPCloud (API para analise de Sentimento) 
 - GraphQL (Lighthouse)
 - Docker
 - Swagger
