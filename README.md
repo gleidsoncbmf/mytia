@@ -25,9 +25,9 @@
 
 ## 📦 Instalação e Configuração
 
-### 1️⃣ Clonar o Repositório
+- Certifique-se de ter o git, docker e docker-compose instalados. 
 
-Certifique-se de ter o git, docker e docker-compose instalados.
+### 1️⃣ Clonar o Repositório
 
 Clone o repositório do Projeto:
 
@@ -72,7 +72,7 @@ Após os comandos, a api estará disponível.
 
 ### 📡 Swagger, Postman e Rotas
 
-A forma mais prática de acessar as Rotas documentadas é através do Swagger, que foi implementando e está diponível na seguinte rota:
+A forma mais prática de acessar as Rotas documentadas é através do Swagger, que foi implementado e está diponível na seguinte rota:
 
 ```bash
 http://127.0.0.1:80/api/documentation
