@@ -356,14 +356,14 @@ A API Conta com Observers para gerenciar eventos no sistema, como a criação e 
 
 ## 🧪 Testes
 
-- Unitários
-Criação de Produto
-Criação de Usuário
+### Unitários
+- Criação de Produto
+- Criação de Usuário
 
-- Integração
-Fluxo para cadastrar uma avaliação(criação de usuario, criação de produto, associação de produto)
-Fluxo para gerar um convite, e cadastro através do convite.
-Fluxo para criação e listagem de produtos.
+### Integração
+- Fluxo para cadastrar uma avaliação(criação de usuario, criação de produto, associação de produto)
+- Fluxo para gerar um convite, e cadastro através do convite.
+- Fluxo para criação e listagem de produtos.
 
 - Para rodar os testes:
 
