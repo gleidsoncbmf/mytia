@@ -1,6 +1,6 @@
 Proposta de Melhoria do Projeto:
 
-Criação de filtros para exibir listas dos usuários baseado nos dados passados. Com isso, o administrador pode visualizar e gerenciar melhor, não dependendo de conhecer apenas o ID do usuario para fazer um update por exemplo.
+Criação de filtros para exibir listas dos usuáriose produtos baseado nos dados passados. Com isso, o administrador pode visualizar e gerenciar melhor, não dependendo de conhecer apenas o ID do usuario para fazer um update por exemplo.
 
 Utilizar REDIS para Cache, caso a aplicação se torne mais robusta.
 
